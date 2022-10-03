@@ -13,10 +13,10 @@ SECRET_KEY = ${SECRET_KEY}
 
 bucket_name = ${bucket_name}
 
-
+sudo mkdir my_dir
 sudo apt update -y
-sudo apt install -y apache2 ghostscript libapache2-mod-php mariadb-server 
-sudo apt install -y php php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip
+sudo apt install -y apache2 mariadb-server 
+sudo apt install -y php php-mysql
 
 sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 sudo chmod +x wp-cli.phar
@@ -91,8 +91,6 @@ sudo sed -i "/define( 'WP_DEBUG', false );/r credfile.txt" /srv/www/wordpress/wp
 sudo rm -r credfile.txt
 
 
-# cd /srv/www/wordpress
-#sudo wp --allow-root plugin  
 cd /srv/www/wordpress
 sudo wp --allow-root core install --url=http://${site_url} --title=test --admin_user=${admin_user} --admin_password=${admin_pass} --admin_email=test@cmail.com
 sudo wp --allow-root plugin install amazon-s3-and-cloudfront

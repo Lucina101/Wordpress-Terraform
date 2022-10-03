@@ -1,4 +1,5 @@
 #!/bin/bash
+
 database_name = ${database_name}
 database_user = ${database_user}
 database_pass = ${database_pass}
@@ -9,8 +10,6 @@ sudo apt-get update -y
 sudo apt install -y mariadb-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
-
-
 
 
 sudo mariadb -e "CREATE DATABASE ${database_name}"
