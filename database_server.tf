@@ -1,4 +1,3 @@
-/**
 resource "aws_eip" "nat_gateway_eip" {
   vpc = true
 }
@@ -22,7 +21,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   depends_on = [aws_eip.nat_gateway_eip, aws_subnet.nat_public_subnet]
 }
 
-*/
+
 
 resource "aws_subnet" "db_private_subnet" {
     vpc_id = aws_vpc.vpc.id
@@ -51,10 +50,17 @@ resource "aws_route_table" "private_rt" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway.id
+    gateway_id = aws_nat_gateway.nat_gateway.id
     #change this to nat gateway later
   }
 }
+
+# Routing table association
+resource "aws_route_table_association" "public_routing_to_igw" {
+  subnet_id      = aws_subnet.nat_public_subnet.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
 
 # Routing table association
 resource "aws_route_table_association" "private_routing_asc" {
@@ -92,11 +98,12 @@ resource "aws_instance" "database_server" {
   tags = {
     Name = "database_server"
   }
-  depends_on = [aws_network_interface.db_server_nic]
+  depends_on = [aws_network_interface.db_server_nic, aws_nat_gateway.nat_gateway]
 }
 
 
 /// this is for money saving
+/*
 resource "aws_eip" "eip_2" {
     vpc = true
     network_interface = aws_network_interface.db_server_nic.id
@@ -107,4 +114,4 @@ resource "aws_eip" "eip_2" {
 
 output "IP2" {
     value = aws_eip.eip_2.public_ip
-}
+}*/

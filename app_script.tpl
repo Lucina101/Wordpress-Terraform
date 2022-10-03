@@ -13,10 +13,9 @@ SECRET_KEY = ${SECRET_KEY}
 
 bucket_name = ${bucket_name}
 
-sudo mkdir my_dir
 sudo apt update -y
 sudo apt install -y apache2 mariadb-server 
-sudo apt install -y php php-mysql
+sudo apt install -y php php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip
 
 sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 sudo chmod +x wp-cli.phar

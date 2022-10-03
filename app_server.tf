@@ -86,6 +86,8 @@ resource "aws_instance" "app_server" {
     tags = {
         Name = "app_server" /** Ec2 instance name*/
     }
+
+    depends_on = [aws_nat_gateway.nat_gateway]
 }
 
 output "IP" {
