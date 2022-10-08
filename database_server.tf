@@ -52,6 +52,7 @@ resource "aws_route_table" "private_rt" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.nat_gateway.id
     #change this to nat gateway later
+    #change to IGW if you want to save money
   }
 }
 
@@ -102,7 +103,7 @@ resource "aws_instance" "database_server" {
 }
 
 
-/// this is for money saving
+/// this is for money saving, it's unreasonable to use NAT Gateway for this assignment....
 /*
 resource "aws_eip" "eip_2" {
     vpc = true

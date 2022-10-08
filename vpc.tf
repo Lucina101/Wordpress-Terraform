@@ -53,21 +53,6 @@ resource "aws_security_group" "allow_web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description = "DATABASE"
-    from_port = 3306
-    to_port = 3306
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "PING"
-    from_port = 8
-    to_port = 0
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   egress {
     from_port        = 0
@@ -81,6 +66,36 @@ resource "aws_security_group" "allow_web" {
     Name = "allow_web"
   }
 }
+
+
+
+# Allow only 3306 in the private subnet
+resource "aws_security_group" "db_connection" {
+  name        = "db_connection"
+  description = "db_connection"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description = "DATABASE"
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    cidr_blocks = ["172.16.2.0/24"]
+  }
+
+  egress {
+    description = "DATABASE"
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    cidr_blocks = ["172.16.2.0/24"]
+  }
+
+  tags = {
+    Name = "db_connection"
+  }
+}
+
 
 
 

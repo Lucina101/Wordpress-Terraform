@@ -13,7 +13,7 @@ resource "aws_subnet" "app_db_subnet" {
 resource "aws_network_interface" "app_side_nic" {
   subnet_id       = aws_subnet.app_db_subnet.id
   private_ips     = ["172.16.2.42"]
-  security_groups = [aws_security_group.allow_web.id] #might modify later, for now allowed all
+  security_groups = [aws_security_group.db_connection.id] #might modify later, for now allowed all
 
   tags = {
     Name : "app_side_nic"
@@ -25,7 +25,7 @@ resource "aws_network_interface" "app_side_nic" {
 resource "aws_network_interface" "db_side_nic" {
   subnet_id       = aws_subnet.app_db_subnet.id
   private_ips     = ["172.16.2.21"]
-  security_groups = [aws_security_group.allow_web.id] #might modify later, for now allowed all
+  security_groups = [aws_security_group.db_connection.id] #might modify later, for now allowed all
 
   tags = {
     Name : "app_side_nic"
