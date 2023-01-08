@@ -18,6 +18,9 @@ Run this command
   terraform apply
 ```
 
+It should output public ip-address for ec2 instance in terminal.
+Use that ip-address to access the site.
+
 To clean up created resources, run
 ```bash
   terraform destroy
