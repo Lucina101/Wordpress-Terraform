@@ -1,4 +1,4 @@
-#Wordpress-Terraform
+# Wordpress-Terraform
 
 Deploy wordpress site with terraform and aws services.
 This infrastructure is not free though. I used one forced-paid service, NAT-gateway. (Since I was forced by instructor to use it)
